@@ -1,3 +1,5 @@
+package com.validity.businessLogic;
+
 public class LineData {
     private int id;
     private String firstName;
@@ -11,6 +13,7 @@ public class LineData {
     private String stateLong;
     private String state;
     private String phone;
+    private String fullLine;
 
     public int getId(){
         return id;
@@ -88,5 +91,13 @@ public class LineData {
     }
     public void setPhone(String phone){
         this.phone = phone;
+    }
+
+    public String getFullLine() {
+        return fullLine;
+    }
+
+    public void setFullLine(String fullLine) {
+        this.fullLine = fullLine;
     }
 }
