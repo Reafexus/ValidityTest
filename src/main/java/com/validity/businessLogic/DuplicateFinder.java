@@ -71,34 +71,33 @@ public class DuplicateFinder {
         if (data1.getCity().equals(data2.getCity())) {
             similar++;
         }
-        if (data1.getCity().isBlank() || data2.getCity().isBlank()) {
+        if (isBlank(data1.getCity()) || isBlank(data2.getCity())) {
             missingData++;
         }
         if (data1.getStateLong().equals(data2.getStateLong())) {
             similar++;
         }
-        if (data1.getStateLong().isBlank() || data2.getStateLong().isBlank()) {
+        if (isBlank(data1.getStateLong()) || isBlank(data2.getStateLong())) {
             missingData++;
         }
         if (data1.getState().equals(data2.getState())) {
             similar++;
         }
-        if (data1.getState().isBlank() || data2.getState().isBlank()) {
+        if (isBlank(data1.getState()) || isBlank(data2.getState())) {
             missingData++;
         }
         if (data1.getZip().equals(data2.getZip())) {
             similar++;
         }
-        if (data1.getZip().isBlank() || data2.getZip().isBlank()) {
+        if (isBlank(data1.getZip()) || isBlank(data2.getZip())) {
             missingData++;
         }
         if (data1.getPhone().equals(data2.getPhone())) {
             similar++;
         }
-        if (data1.getPhone().isBlank() || data2.getPhone().isBlank()) {
+        if (isBlank(data1.getPhone()) || isBlank(data2.getPhone())) {
             missingData++;
         }
-        //5
         if (similar == 0 && missingData == 0) {
             if (data1.getId() == data2.getId()) {
                 System.out.println("Not Duplicate: " + data1.getId() + " and " + data2.getId());
@@ -108,7 +107,7 @@ public class DuplicateFinder {
         int similarFirstName = 0;
         boolean startFirstSame = false;
         boolean missingFirstNames = false;
-        if (!data1.getFirstName().isBlank() && !data2.getFirstName().isBlank()) {
+        if (!isBlank(data1.getFirstName()) && !isBlank(data2.getFirstName())) {
             String[] firstName1 = data1.getFirstName().split("");
             String[] firstName2 = data2.getFirstName().split("");
             if (firstName1[0].equals(firstName2[0])) {
@@ -130,7 +129,7 @@ public class DuplicateFinder {
         int similarLastName = 0;
         boolean startLastSame = false;
         boolean missingLastNames = false;
-        if (!data1.getLastName().isBlank() && !data2.getLastName().isBlank()) {
+        if (!isBlank(data1.getLastName()) && !isBlank(data2.getLastName())) {
             String[] lastName1 = data1.getLastName().split("");
             String[] lastName2 = data2.getLastName().split("");
             if (lastName1[0].equals(lastName2[0])) {
@@ -156,7 +155,7 @@ public class DuplicateFinder {
             return false;
         }
         int similarCompany = 0;
-        if (!data1.getCompany().isBlank() && !data2.getCompany().isBlank()) {
+        if (!isBlank(data1.getCompany()) && !isBlank(data2.getCompany())) {
             String[] company1 = data1.getCompany().split(" ");
             String[] company2 = data2.getCompany().split(" ");
             for (String s1 : company1) {
@@ -177,7 +176,7 @@ public class DuplicateFinder {
             missingData++;
         }
         int similarEmail = 0;
-        if (!data1.getEmail().isBlank() && !data2.getEmail().isBlank()) {
+        if (!isBlank(data1.getEmail()) && !isBlank(data2.getEmail())) {
             String[] email1 = data1.getEmail().split("[@.]");
             String[] email2 = data2.getEmail().split("[@.]");
             similarEmail += email1[0].equals(email2[0]) ? 1 : 0;
@@ -190,7 +189,7 @@ public class DuplicateFinder {
             missingData++;
         }
         int similarAddress = 0;
-        if (!data1.getAddress1().isBlank() && !data2.getAddress1().isBlank()) {
+        if (!isBlank(data1.getAddress1()) && !isBlank(data2.getAddress1())) {
             String[] address1 = data1.getAddress1().split(" ");
             String[] address2 = data2.getAddress1().split(" ");
             for (int i = 0; i < 3; i++) {
@@ -223,7 +222,11 @@ public class DuplicateFinder {
         return false;
     }
 
-    public boolean ignoreCommon(String word) {
+    private boolean ignoreCommon(String word) {
         return word.equals("The") || word.equals("and") || word.equals("Group") || word.equals("Company") || word.equals("Inc") || word.equals("LLC");
+    }
+
+    private boolean isBlank(String str){
+        return "".equals(str);
     }
 }
