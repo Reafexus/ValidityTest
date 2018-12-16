@@ -4,14 +4,17 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class DuplicateFinder {
 
-    public void findDupes() {
+    public DuplicateDisplay findDupes() {
         DuplicateDisplay display = new DuplicateDisplay();
-        File file = new File("C:\\Validity_take_home_exercise\\normal.csv");
+        display.setDuplicates(new ArrayList<String>());
+        display.setSingles(new ArrayList<String>());
+        File file = new File(getClass().getClassLoader().getResource("normal.csv").getFile());
         Map<Integer, LineData> data = new HashMap<>();
         String line;
         int lineNumber = 0;
@@ -34,6 +37,7 @@ public class DuplicateFinder {
                 lineData.setStateLong(split[9]);
                 lineData.setState(split[10]);
                 lineData.setPhone(split[11]);
+                lineData.setFullLine(line);
                 data.put(lineNumber, lineData);
                 lineNumber++;
             }
@@ -41,14 +45,24 @@ public class DuplicateFinder {
             e.printStackTrace();
         }
         for (int i = 1; i < lineNumber; i++) {
+            boolean dupes = false;
             for (int j = i + 1; j < lineNumber; j++) {
-                boolean dupes = areEntriesSimilar(data.get(i), data.get(j));
+                dupes = areEntriesSimilar(data.get(i), data.get(j));
                 if (dupes) {
-                    System.out.print("Line: " + i + ": ");
-                    System.out.println("Duplicate: " + data.get(i).getId() + " and " + data.get(j).getId());
+                    data.get(i).setWasDupe(true);
+                    data.get(j).setWasDupe(true);
+                    break;
                 }
             }
         }
+        for (int i = 1; i < lineNumber; i++) {
+            if(data.get(i).isWasDupe()){
+                display.getDuplicates().add(data.get(i).getFullLine());
+            } else{
+                display.getSingles().add(data.get(i).getFullLine());
+            }
+        }
+        return display;
     }
 
     private boolean areEntriesSimilar(LineData data1, LineData data2) {

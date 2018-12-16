@@ -14,6 +14,7 @@ public class LineData {
     private String state;
     private String phone;
     private String fullLine;
+    private boolean wasDupe;
 
     public int getId(){
         return id;
@@ -99,5 +100,13 @@ public class LineData {
 
     public void setFullLine(String fullLine) {
         this.fullLine = fullLine;
+    }
+
+    public boolean isWasDupe() {
+        return wasDupe;
+    }
+
+    public void setWasDupe(boolean wasDupe) {
+        this.wasDupe = wasDupe;
     }
 }
